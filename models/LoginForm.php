@@ -8,7 +8,7 @@ use yii\base\Model;
 /**
  * LoginForm is the model behind the login form.
  *
- * @property-read User|null $user This property is read-only.
+ * @property User|null $user This property is read-only.
  *
  */
 class LoginForm extends Model
@@ -65,17 +65,35 @@ class LoginForm extends Model
         return false;
     }
 
+    // /**
+    //  * Finds user by [[username]]
+    //  *
+    //  * @return User|null
+    //  */
+    // public function getUser()
+    // {
+    //     if ($this->_user === false) {
+    //         $this->_user = User::findByUsername($this->username);
+    //     }
+
+    //     return $this->_user;
+    // }
+
     /**
-     * Finds user by [[username]]
+     * Finds user by [[email]]
      *
      * @return User|null
      */
-    public function getUser()
+    protected function getUser()
     {
+        // Verifica se username é e-mail para chamar o método findByEmail
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            if(filter_var($this->username, FILTER_VALIDATE_EMAIL)){
+                $this->_user = User::findByEmail($this->username);
+            } else {
+                $this->_user = User::findByUsername($this->username);
+            }
         }
-
         return $this->_user;
     }
 }
