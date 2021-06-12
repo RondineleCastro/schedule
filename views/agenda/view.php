@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Agenda */
 
-$this->title = $model->id;
+$this->title = $model->atividade->titulo . " ($model->dt_inicio $model->hr_inicio)";
 $this->params['breadcrumbs'][] = ['label' => 'Agendas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -31,9 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             // 'id',
             'aluno.name',
-            'coordenador.name',
             'atividade.titulo',
-            'dt_entrega',
+            'coordenador.name',
+            'dt_inicio',
+            'hr_inicio',
+            'dt_fim',
+            'hr_fim',
             'dt_in',
             'dt_up',
         ],

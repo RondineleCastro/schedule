@@ -11,7 +11,10 @@ use Yii;
  * @property int $aluno_id
  * @property int $coordenador_id
  * @property int $atividade_id
- * @property string $dt_entrega
+ * @property string $dt_inicio
+ * @property string $hr_inicio
+ * @property string $dt_fim
+ * @property string $hr_fim
  * @property string $dt_in
  * @property string $dt_up
  *
@@ -37,7 +40,7 @@ class Agenda extends \yii\db\ActiveRecord
         return [
             [['aluno_id', 'coordenador_id', 'atividade_id'], 'required'],
             [['aluno_id', 'coordenador_id', 'atividade_id'], 'integer'],
-            [['dt_entrega', 'dt_in', 'dt_up'], 'safe'],
+            [['dt_inicio', 'hr_inicio', 'dt_fim', 'hr_fim', 'dt_in', 'dt_up'], 'safe'],
             [['aluno_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['aluno_id' => 'id']],
             [['coordenador_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['coordenador_id' => 'id']],
             [['atividade_id'], 'exist', 'skipOnError' => true, 'targetClass' => Atividade::className(), 'targetAttribute' => ['atividade_id' => 'id']],
@@ -54,7 +57,10 @@ class Agenda extends \yii\db\ActiveRecord
             'aluno_id' => 'Aluno',
             'coordenador_id' => 'Coordenador',
             'atividade_id' => 'Atividade',
-            'dt_entrega' => 'Data de Entrega',
+            'dt_inicio' => 'Data Início',
+            'hr_inicio' => 'Hora Início',
+            'dt_fim' => 'Data Fim',
+            'hr_fim' => 'Hora Fim',
             'dt_in' => 'Cadastrado em',
             'dt_up' => 'Atualizado em',
 

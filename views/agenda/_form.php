@@ -9,23 +9,24 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="agenda-form">
-
     <?php $form = ActiveForm::begin(); ?>
-
-    <?php // $form->field($model, 'aluno_id')->textInput() ?>
-
-    <?php // $form->field($model, 'atividade_id')->textInput() ?>
-
-    <?= $form->field($model, 'aluno_id', ['options' => ['class' => '']])->dropdownList($model->listAlunos, ['prompt'=>'Selecione o Aluno'])?>
-
-    <?= $form->field($model, 'atividade_id', ['options' => ['class' => '']])->dropdownList($model->listAtividades, ['prompt'=>'Selecione a Atividade'])?>
-
-    <?= $form->field($model, 'dt_entrega')->input('date') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <hr>
+    <div class="row">
+        <?= $form->field($model, 'aluno_id', ['options' => ['class' => 'col-lg-6']])->dropdownList($model->listAlunos, ['prompt'=>'Selecione o Aluno'])?>
+        <?= $form->field($model, 'atividade_id', ['options' => ['class' => 'col-lg-6']])->dropdownList($model->listAtividades, ['prompt'=>'Selecione a Atividade'])?>
+        <?= $form->field($model, 'dt_inicio', ['options' => ['class' => 'col-lg-4']])->input('date') ?>
+        <?= $form->field($model, 'hr_inicio', ['options' => ['class' => 'col-lg-2']])->input('time') ?>
+        <?= $form->field($model, 'dt_fim', ['options' => ['class' => 'col-lg-4']])->input('date') ?>
+        <?= $form->field($model, 'hr_fim', ['options' => ['class' => 'col-lg-2']])->input('time') ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <hr>
+    <div class="row">
+        <div class="col-lg-6">
+            
+        </div>
+        <div class="col-lg-6 text-right">
+            <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
+        </div>
+    </div>
+        <?php ActiveForm::end(); ?>
 </div>

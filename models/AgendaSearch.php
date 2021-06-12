@@ -18,7 +18,7 @@ class AgendaSearch extends Agenda
     {
         return [
             [['id', 'aluno_id', 'coordenador_id', 'atividade_id'], 'integer'],
-            [['dt_entrega', 'dt_in', 'dt_up'], 'safe'],
+            [['dt_inicio', 'hr_inicio', 'dt_fim', 'hr_fim', 'dt_in', 'dt_up'], 'safe'],
         ];
     }
 
@@ -62,7 +62,10 @@ class AgendaSearch extends Agenda
             'aluno_id' => $this->aluno_id,
             'coordenador_id' => $this->coordenador_id,
             'atividade_id' => $this->atividade_id,
-            'dt_entrega' => $this->dt_entrega,
+            'dt_inicio' => $this->dt_inicio,
+            'hr_inicio' => $this->hr_inicio,
+            'dt_fim' => $this->dt_fim,
+            'hr_fim' => $this->hr_fim,
             'dt_in' => $this->dt_in,
             'dt_up' => $this->dt_up,
         ]);

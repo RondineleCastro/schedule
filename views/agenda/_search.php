@@ -26,7 +26,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'atividade_id') ?>
 
-    <?= $form->field($model, 'dt_entrega') ?>
+    <?= $form->field($model, 'dt_inicio') ?>
+
+    <?= $form->field($model, 'hr_inicio') ?>
 
     <?php // echo $form->field($model, 'dt_in') ?>
 

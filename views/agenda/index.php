@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="agenda-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <p>
         <?= Html::a('Agendar Atividade', ['create'], ['class' => 'btn btn-success']) ?>
@@ -29,9 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             // 'id',
             'aluno.name',
-            'coordenador.name',
+            'dt_inicio',
+            'hr_inicio',
+            // 'dt_fim',
+            // 'hr_fim',
             'atividade.titulo',
-            'dt_entrega',
+            'coordenador.name',
             //'dt_in',
             //'dt_up',
 
