@@ -26,9 +26,20 @@ class AgendaController extends Controller
                 'only' => [],
                 'rules' => [
                     [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->perfil === 'Aluno';
+                        },
+                    ],
+                    [
                         'actions' => [],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->perfil === 'Coordenador';
+                        },
                     ],
                 ],
             ],
@@ -41,19 +52,31 @@ class AgendaController extends Controller
         ];
     }
 
+
     /**
      * Lists all Agenda models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AgendaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->identity->perfil === "Aluno"){
+            $model = Agenda::find()
+                ->where(['aluno_id' => Yii::$app->user->identity->id])
+                ->orderBy('dt_inicio, hr_inicio DESC')
+                ->all();
+            return $this->render('index', [
+                'model' => $model,
+            ]);
+        }
+        else{
+            $searchModel = new AgendaSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('all', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**

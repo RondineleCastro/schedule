@@ -8,15 +8,20 @@ $this->title = 'StudantSchedule';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <p class="lead">Caro estudante, bem vindo ao</p>
-        <h1>Studant Schedule!</h1>
+    <div class="jumbotron" style="padding-bottom: 0px; margin-bottom: 20px;">
+        <p class="lead" style="margin-bottom: 10px;">Caro estudante, bem vindo ao</p>
+        <h1 style="margin-top: 0px;">Studant Schedule!</h1>
         <p class="lead">A sua agenda de atividades acadêmicas.</p>
-        <?= Html::a('Cadastre-se', ['site/signup'], ['class' => 'btn btn-lg btn-success']) ?>
+        <div class="row">
+            <div class="col-md-6" style="margin-bottom: 10px;">
+                <?= Html::a('Cadastre-se', ['site/signup'], ['class' => 'btn btn-lg btn-success btn-block']) ?>
+            </div>
+            <div class="col-md-6" style="margin-bottom: 10px;">
+                <?= Html::a('Já sou cadastrado', ['site/login'], ['class' => 'btn btn-lg btn-primary btn-block']) ?>
+            </div>
+        </div>
     </div>
-
     <div class="body-content">
-
         <div class="row">
             <div class="col-lg-4">
                 <h2>Finalidade</h2>

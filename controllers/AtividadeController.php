@@ -26,9 +26,20 @@ class AtividadeController extends Controller
                 'only' => [],
                 'rules' => [
                     [
+                        'actions' => ['view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->perfil === 'Aluno';
+                        }
+                    ],
+                    [
                         'actions' => [],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->perfil === 'Coordenador';
+                        }
                     ],
                 ],
             ],

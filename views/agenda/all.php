@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\AtividadeSearch */
+/* @var $searchModel app\models\AgendaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Atividades';
+$this->title = 'Agenda de Atividades';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="atividade-index">
+<div class="agenda-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <p>
-        <?= Html::a('Adicionar Atividade', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agendar Atividade', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -28,10 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'dt_in',
-            'titulo',
-            // 'descricao:ntext',
+            'aluno.name',
+            'atividade.titulo',
+            'dt_inicio',
+            'hr_inicio',
+            // 'dt_fim',
+            // 'hr_fim',
             'coordenador.name',
+            //'dt_in',
             //'dt_up',
 
             ['class' => 'yii\grid\ActionColumn'],

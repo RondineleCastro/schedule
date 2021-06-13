@@ -27,34 +27,41 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+    
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
+            // 'style' => 'background-color: #337ab7; border-color: #337ab7;',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            // ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Agenda', 'url' => ['/agenda/index']],
-            ['label' => 'Atividades', 'url' => ['/atividade/index']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
+        if (Yii::$app->user->isGuest){
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    ['label' => 'Entrar', 'url' => ['/site/login']],
+                ],
+
+            ]);
+        } else {
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    ['label' => 'Agenda', 'url' => ['/agenda/index']],
+                    ['label' => 'Atividades', 'url' => ['/atividade/index'], 'visible' => Yii::$app->user->identity->perfil === 'Coordenador'],
+                    '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        Yii::$app->user->identity->username . ' (Sair)',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+                ],
+            ]);
+        }
     NavBar::end();
     ?>
 

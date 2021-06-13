@@ -11,8 +11,6 @@ $this->title = 'Acessar o Sistema';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h3><?= Html::encode($this->title) ?></h3>
-
     <p>Digite seus dados de acesso:</p>
 
     <div class="row">
