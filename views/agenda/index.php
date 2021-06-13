@@ -15,32 +15,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <table class="table table-hover table-borderless table-sm">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Atividade</th>
-                <th scope="col">Data Início</th>
-                <th scope="col">Data Fim</th>
-                <th scope="col">Coordenador</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($model as $m): ?>
-            <tr>
-                <th scope="row"></th>
-                <td><?= $m->atividade->titulo ?></td>
-                <td><?= $m->dt_inicio ?></td>
-                <td><?= $m->dt_fim ?></td>
-                <td><?= $m->coordenador->name ?></td>
-                <td>
-                    <?= Html::a('<i class="far fa-eye"></i>', ['atividade/view', 'id' => $m->atividade_id], ['class' => 'btn btn-success']) ?>
-                </td>
-            </tr>  
-        <?php endforeach ?>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-hover table-borderless table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Atividade</th>
+                    <th scope="col">Data Início</th>
+                    <th scope="col">Data Fim</th>
+                    <th scope="col">Coordenador</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($model as $m): ?>
+                <tr>
+                    <th scope="row"></th>
+                    <td><?= $m->atividade->titulo ?></td>
+                    <td><?= $m->dt_inicio ?></td>
+                    <td><?= $m->dt_fim ?></td>
+                    <td><?= $m->coordenador->name ?></td>
+                    <td>
+                        <?= Html::a('<i class="far fa-eye"></i>', ['atividade/view', 'id' => $m->atividade_id], ['class' => 'btn btn-success']) ?>
+                    </td>
+                </tr>  
+            <?php endforeach ?>
+            </tbody>
+        </table>
+        
+    </div>
     
     <?php Pjax::end(); ?>
 
