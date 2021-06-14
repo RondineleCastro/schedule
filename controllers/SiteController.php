@@ -69,6 +69,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->isGuest)
+            return $this->redirect('agenda/index');
+
         return $this->render('index');
     }
 
@@ -86,8 +89,8 @@ class SiteController extends Controller
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect(['agenda/index']);
-            // return $this->goBack();
+            // return $this->redirect(['agenda/index']);
+            return $this->goBack();
         }
 
         $model->password = '';

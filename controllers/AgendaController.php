@@ -26,7 +26,7 @@ class AgendaController extends Controller
                 'only' => [],
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'calendar', 'list-all'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -60,13 +60,7 @@ class AgendaController extends Controller
     public function actionIndex()
     {
         if(Yii::$app->user->identity->perfil === "Aluno"){
-            $model = Agenda::find()
-                ->where(['aluno_id' => Yii::$app->user->identity->id])
-                ->orderBy('dt_inicio, hr_inicio DESC')
-                ->all();
-            return $this->render('index', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['calendar']);
         }
         else{
             $searchModel = new AgendaSearch();
@@ -77,6 +71,27 @@ class AgendaController extends Controller
                 'dataProvider' => $dataProvider,
             ]);
         }
+    }
+
+    public function actionListAll()
+    {
+        $model = Agenda::find()
+            ->where(['aluno_id' => Yii::$app->user->identity->id])
+            ->orderBy('dt_inicio, hr_inicio DESC')
+            ->all();
+        return $this->render('index', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCalendar()
+    {
+        $id = Yii::$app->user->identity->perfil === 'Aluno' ? Yii::$app->user->identity->id : null;
+        $model = Agenda::agendaAlunoJSON($id);
+
+        return $this->render('calendar',[
+            'model' => $model,
+        ]);
     }
 
     /**

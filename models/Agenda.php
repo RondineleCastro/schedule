@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "agenda".
@@ -102,12 +103,25 @@ class Agenda extends \yii\db\ActiveRecord
 
     public function getListAlunos()
     {
-        return User::find()
-            ->select('name')
+        // return User::find()
+        //     ->select('name')
+        //     ->where(['perfil' => 'Aluno', 'status' => User::STATUS_ACTIVE])
+        //     ->orderBy('name')
+        //     ->indexBy('id')
+        //     ->column();
+        
+        $s = User::find()
+            ->select(['id','name','matricula'])
             ->where(['perfil' => 'Aluno', 'status' => User::STATUS_ACTIVE])
             ->orderBy('name')
-            ->indexBy('id')
-            ->column();
+            ->asArray()
+            ->all();
+        $r = array();
+        foreach ($s as $v){
+            $r[$v['id']] = $v['matricula'] . ' - ' . $v['name'];
+        }
+
+        return $r;
     }
 
     public function getListAtividades()
@@ -125,5 +139,33 @@ class Agenda extends \yii\db\ActiveRecord
             $this->coordenador_id = $data->coordenador_id ?? Yii::$app->user->identity->id;
         }
         return parent::load($data, $formName = NULL);
+    }
+
+    public function agendaAlunoJSON($idAluno = null)
+    {
+        $where = $idAluno ? ['aluno_id' => $idAluno] : null;
+        
+        $model = Agenda::find()
+            ->select(['id', 'atividade_id', 'dt_inicio', 'hr_inicio', 'dt_fim', 'hr_fim'])
+            ->where($where)
+            ->orderBy('dt_inicio, hr_inicio DESC')
+            ->all();
+
+        $return = array();
+        foreach ($model as $v){
+            $v = (object) $v;
+            // Formação de JSON para o CalendarJS
+            $agenda = [
+                'id' => $v->id,
+                'title' => $v->atividade->titulo,
+                'start' => $v->dt_inicio . 'T' . $v->hr_inicio,
+                'end' => $v->dt_fim . 'T' . $v->hr_fim,
+                'url' => Url::toRoute(['atividade/view', 'id' => $v->atividade_id]),
+            ];
+
+            array_push($return, $agenda);
+        }
+        
+        return json_encode($return);
     }
 }
