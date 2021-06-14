@@ -10,30 +10,31 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Cadastro de Usuário';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <!-- <p>Please fill out the following fields to signup:</p> -->
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-
-                <?= $form->field($model, 'perfil', ['options' => ['class' => '']])->dropdownList($model->listPerfil, ['default'=>'Aluno'])?>
-
+<div class="site-signup row">
+    <div class="col-sm-12 col-md-6" style="border: aliceblue solid 1px;border-color: #777777;border-radius: 10px;padding: 0 25px 25px; background-color: ghostwhite;">
+        <h3 class="text-center"><?= Html::encode($this->title) ?></h3>
+        <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+            <div class="row row-no-gutters">
+                <?= $form->field($model, 'perfil', ['options' => ['class' => 'col-lg-6']])->dropdownList($model->listPerfil, ['default'=>'Aluno'])?>
+                <?= $form->field($model, 'matricula', ['options' => ['class' => 'col-lg-6']]) ?>
                 <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'matricula') ?>
-
-                <?= $form->field($model, 'email') ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Cadastrar', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?= $form->field($model, 'email', ['options' => ['class' => 'col-lg-6']]) ?>
+                <?= $form->field($model, 'password', ['options' => ['class' => 'col-lg-6']])->passwordInput() ?>
+            </div>
+            <div class="row" style="margin-top:30px;">
+                <div class="col-md-6">
+                    <?= Html::a('Cancelar', ['site/signup'], ['class' => 'btn btn-default btn-block']) ?>.
                 </div>
 
-            <?php ActiveForm::end(); ?>
-        </div>
+                <div class="col-md-6">
+                    <?= Html::submitButton('Cadastrar', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                </div>
+                
+            </div>
+        <?php ActiveForm::end(); ?>
+    </div>
+    <div class="col-lg-6 hidden-md visible-lg-block">
+        <div style="background-image: url(/design/img/agenda4.png); background-repeat: no-repeat; background-position: bottom; height: 404px; border-radius: 15px"></div>
     </div>
 </div>

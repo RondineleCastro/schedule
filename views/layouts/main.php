@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/favicon.png']);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -49,6 +50,7 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
+                    ['label' => 'Calendário', 'url' => ['/agenda/calendar']],
                     ['label' => 'Agenda', 'url' => ['/agenda/index']],
                     ['label' => 'Atividades', 'url' => ['/atividade/index'], 'visible' => Yii::$app->user->identity->perfil === 'Coordenador'],
                     '<li>'
