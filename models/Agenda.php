@@ -39,9 +39,10 @@ class Agenda extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['aluno_id', 'coordenador_id', 'atividade_id'], 'required'],
+            [['aluno_id', 'coordenador_id', 'atividade_id', 'dt_inicio', 'hr_inicio'], 'required'],
             [['aluno_id', 'coordenador_id', 'atividade_id'], 'integer'],
             [['dt_inicio', 'hr_inicio', 'dt_fim', 'hr_fim', 'dt_in', 'dt_up'], 'safe'],
+            [['hr_inicio'], 'default', 'value' => '00:00:01'],
             [['aluno_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['aluno_id' => 'id']],
             [['coordenador_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['coordenador_id' => 'id']],
             [['atividade_id'], 'exist', 'skipOnError' => true, 'targetClass' => Atividade::className(), 'targetAttribute' => ['atividade_id' => 'id']],
@@ -137,6 +138,7 @@ class Agenda extends \yii\db\ActiveRecord
     {
         if ($data){
             $this->coordenador_id = $data->coordenador_id ?? Yii::$app->user->identity->id;
+            // $this->hr_inicio = $data->hr_inicio ?? "00:01:00";
         }
         return parent::load($data, $formName = NULL);
     }
