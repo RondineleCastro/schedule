@@ -16,9 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <h3 class="text-center"><?= Html::encode($this->title) ?></h3>
         <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
             <div class="row row-no-gutters">
-                <?= $form->field($model, 'perfil', ['options' => ['class' => 'col-lg-6']])->dropdownList($model->listPerfil, ['default'=>'Aluno'])?>
+                <?= $form->field($model, 'perfil', ['options' => ['class' => 'col-lg-6']])->dropdownList($model->listPerfil, ['default'=>'Aluno']) ?>
                 <?= $form->field($model, 'matricula', ['options' => ['class' => 'col-lg-6']]) ?>
-                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'name') ?>
                 <?= $form->field($model, 'email', ['options' => ['class' => 'col-lg-6']]) ?>
                 <?= $form->field($model, 'password', ['options' => ['class' => 'col-lg-6']])->passwordInput() ?>
             </div>
